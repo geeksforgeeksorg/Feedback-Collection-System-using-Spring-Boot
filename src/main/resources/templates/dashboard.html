@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+	<link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/2029/2029907.png">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	<meta charset="UTF-8">
+	<title>Feedback System</title>
+	<style>
+		nav, .card {
+			background-color: rgb(5, 182, 5);
+		}
+
+		.navbar-brand {
+			font-weight: bold;
+			color: white !important;
+		}
+
+		.head1,
+		.fa {
+			color: rgb(5, 182, 5);
+			font-weight: bold;
+		}
+
+		form {
+			border-radius: 4px !important;
+			box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+			max-width: 1000px;
+			height: auto;
+			margin: auto;
+		}
+
+		label {
+			text-align: left !important;
+			color: black;
+			font-weight: 500;
+			margin-bottom: 5px;
+		}
+
+		.btn {
+			background-color: rgb(5, 182, 5) !important;
+			font-weight: 600;
+		}
+
+		#dashboard_link {
+			text-align: center;
+			color: rgb(5, 182, 5) !important;
+			background-color: white !important;
+		}
+		table{
+			border:1px solid rgb(5, 182, 5) !important;
+		}
+		th, #text_analysis {
+			color: rgb(5, 182, 5) !important;
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-sm navbar-light">
+		<div class="container">
+			<a class="navbar-brand" href="#"><i class="fa fa-commenting" aria-hidden="true" style="color: white;"></i>
+				FeedBack System</a>
+		</div>
+	</nav>
+	<main>
+		<div class="container">
+
+
+			<div class="table-responsive mt-5 mb-4">
+				<table class="table table-bordered">
+					<thead class="bg-light">
+						<th>SI.NO</th>
+						<th>User Name</th>
+						<th>Email</th>
+						<th>Feedback Category</th>
+						<th>Comments</th>
+						<th>DateTime</th>
+					</thead>
+					<tbody>
+						<tr th:each="feedback, iterStat : ${feedbackList}">
+							<td th:text="${iterStat.index + 1}">1</td>
+							<td th:text="${feedback.fullName}">User Name</td>
+							<td th:text="${feedback.email}">Email</td>
+							<td th:text="${feedback.category}">Feedback Category</td>
+							<td th:text="${feedback.message}">Comments</td>
+							<td th:text="${feedback.date}">DateTime</td>
+						</tr>
+						<tr th:if="${#lists.isEmpty(feedbackList)}">
+							<td colspan="6" class="text text-center text-dark">No Data Available</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="analysis mt-5 mb-4 p-5" style="background-color: rgb(192, 252, 192);">
+			<h4 id="text_analysis" class="text text-center p-2 text-success mb-4">Feedback Analysis</h4>
+				<div class="row row-cols-1 row-cols-md-5 g-4">
+					<div class="col">
+						<div class="card">
+							<div class="card-body text-center text-light">
+								<h6 style="color: white;">Total Feedbacks</h6>
+								<h2 th:text="${totalFeedbacks}"></h2>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="card">
+							<div class="card-body text-center text-light">
+								<h6 style="color: white;">Product Feedbacks</h6>
+								<h2 th:text="${totalProductFeedbacks}"></h2>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="card">
+							<div class="card-body text-center text-light">
+								<h6 style="color: white;">Customer Feedbacks</h6>
+								<h2 th:text="${totalCustomerFeedbacks}"></h2>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="card">
+							<div class="card-body text-center text-light">
+								<h6 style="color: white;">Review Feedbacks</h6>
+								<h2 th:text="${totalReviewFeedbacks}"></h2>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="card">
+							<div class="card-body text-center text-light">
+								<h6 style="color: white;">Other Feedbacks</h6>
+								<h2 th:text="${totalOtherFeedbacks}"></h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+
+</html>
